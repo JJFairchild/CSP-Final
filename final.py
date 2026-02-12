@@ -18,22 +18,47 @@ class Player:
         #if a chest is found call choose_item() on it and add the result to the inventory
         pass
 
+num_potion = 0
+
     def use(self):
+            pass
         if keyboard.is_pressed("e"):
-            os.system("cls")
+            def we():
+                os.system("cls")
+                if keyboard.is_pressed("x"):
+                    #need val to cont game
+                else:
+                    print("Select an item to use:")
+                    for item in self.inv:
+                    print(f"- {item}")
             
-            print("Select an item to use:")
-            for item in self.inv:
-                print(f"- {item}")
-            
-            item = input()
-            if item in self.inv:
-                if item == "Potion":
-                    self.health += 50
-                    if self.health > 100: self.health == 100
-                elif item == "Sword":
-                    self.weapon =
-                
+                    item = input()
+                    if item in self.inv:
+                        if item == "Potion":
+                            if num_potoin <= 0:
+                                print("You don't have any Potions")
+                                we()
+                            else: 
+                                self.health += 50
+                                num_potion -= 1
+                                if self.health > 100: self.health == 100
+                                we()
+                        elif item == "Sword":
+                            self.weapon = "Sword"
+                            we()
+                        elif item == "Spear":
+                            self.weapon = "Spear"
+                            we()
+                        elif item == "Bomb":
+                            self.weapon = "Bomb"
+                            we()
+                        else:
+                            print("Not in inventory")
+                            we()
+                    else:
+                        print("Not in inventory")
+                        we()
+                       
 
 class Enemy:
     def __init__(self, kind, coord):
@@ -57,13 +82,16 @@ class Chest:
     def __init__(self, contents, coord):
         self.contents = contents
         self.coord = coord
-        self.table = [("bomb", 0.1), ("spear", 0.1), ("potion", 0.4)]
+        self.table = [("Bomb", 0.1), ("Spear", 0.1), ("Potion", 0.4)]
         
+       
     def choose_item(self):
         while True:
             item = random.choice(self.table)
             if random.random() < item[1]:
                 return item[0]
+    if item = "Potion":
+        num_potion += 1
 
 game = [
     {},
