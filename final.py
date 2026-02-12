@@ -21,16 +21,13 @@ class Player:
             if type(tile) == Chest and tile.coord in area((),()):
                 pass
 
-            elif type(tile) == Door and tile.coord in area((),()):
-                pass
-
         #if a chest is found call choose_item() on it and add the result to the inventory
 
     def inventory(self):
         os.system("cls")
         
         while True:
-            print("Select an item to use (or type 'Exit' to cancel):")
+            print("Select an item to use (or type 'Exit' to cancel): ")
             for item in self.inv:
                 print(f"- {item}")
             
@@ -44,7 +41,6 @@ class Player:
                 elif item == "Spear": self.weapon = "Spear"
                 elif item == "Bomb": self.weapon = "Bomb"
                 
-                break
             elif item == "Exit": break
             print()
 
@@ -54,13 +50,29 @@ class Player:
 class Enemy:
     def __init__(self, kind, coord):
         self.char = kind
-        if kind == "*": self.health = 10
-        elif kind == "0": self.health = 100
-        else: self.health = 1000
+        if kind == "*":
+            self.health = 25 # fix these values later
+            self.dmg = 10
+        elif kind == "0":
+            self.health = 100
+            self.dmg = 20
+        else:
+            self.health = 500
+            self.dmg = 50
         self.coord = coord
+
+        self.lastAtt = time.time()
     
-    def behavior():
-        pass
+    def behavior(self, player):
+        if self.char == "0" and time.time() - self.lastAtt < 0.2: return
+        if self.char == "%" and time.time() - self.lastAtt < 0.3: return
+
+        if player.coord in area((self.coord[0]-1, self.coord[1]-1),(self.coord[0]+1, self.coord[1]+1)):
+            return player.health - self.dmg
+        else:
+            pass
+
+        
 
 class Wall:
     def __init__(self, coord):
@@ -78,13 +90,20 @@ class Chest:
     def __init__(self, coord):
         self.char = "☐"
         self.coord = coord
-        self.table = [("Bomb", 0.1), ("Spear", 0.1), ("Health Potion", 0.4)]
+        self.table = [("Bomb", 0.05), ("Spear", 0.1), ("Health Potion", 0.4)]
         
     def chooseItem(self):
         while True:
             item = random.choice(self.table)
             if random.random() < item[1]:
                 return item[0]
+            
+class Trap:
+    def __init__(self, coord):
+        self.char = "#"
+
+    def activate(self):
+        pass
 
 # Helper functions / variables --------------------------------------------------------
 
@@ -92,7 +111,7 @@ game = [
     {(x, y): Wall((x, y)) for x, y in zip(
         [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 2, 17, 1, 18, 1, 1, 1, 18, 1, 18, 1, 18, 1, 1, 1, 18, 2, 17, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 10, 11, 11, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13]
-    )} | {(18, 4): Door((18, 4), "|", 1, (2,7)), (18, 5): Door((18, 5), "|", 1, (2,8)), (18, 9): Door((18, 9), "|", 2, (2,2)), (18, 10): Door((18, 10), "|", 1, (2,3))},
+    )} | {(18, 4): Door((18, 4), "|", 1, (2,7)), (18, 5): Door((18, 5), "|", 1, (2,8)), (18, 9): Door((18, 9), "|", 2, (2,2)), (18, 10): Door((18, 10), "|", 2, (2,3))},
     
     {(x, y): Wall((x, y)) for x, y in zip(
         [12, 13, 14, 15, 16, 17, 18, 19, 12, 19, 12, 19, 12, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 19, 19, 19, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
@@ -144,6 +163,9 @@ def move(player):
 
     player.coord = new_coord
 
+def pathfind(player, enemy):
+    
+
 def display(player):
     os.system("cls")
 
@@ -184,9 +206,12 @@ Press ENTER to start your adventure!
     player = Player(char)
         
     while True:
-        if keyboard.is_pressed("e"): player.use()
+        if keyboard.is_pressed("e"): player.inventory()
         if keyboard.is_pressed("esc"): break
 
+        if player.health == 0:
+            print("")
+            break
         move(player)
         display(player)
         time.sleep(.075)
