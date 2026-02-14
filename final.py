@@ -395,12 +395,22 @@ def main():
             break
 
     _ = input(f"""You are {char}.
-LORELORELORE
+Welcome, chosen hero of the prophecy! It has been foretold that you shall enter the Dungeon of Keys.
+Slay the beast of Percentistan (%) and fight of his minions the Ratsterisks (*) and Gobnones (0)!
+These monsters have set up traps (#). If you step on them they will hurt you!
+It is said the hero will enter with their sword but may need a Spear to attack lined up monsters
+and a Bomb to fight from afar. But beware! You'll have to find these weapons in the many chests of
+the Dungeon of Keys. 
+              
+Use E to open your inventory
+To use something from your inventory, type it in. Capitalize the first letter! This is how you
+swap weapons and consume potions.
+Use a Potion from your inventory to restore your health. 
 
 Use the arrow keys (or WASD) to move
-Use E to open the inventory
 Use SPACE to attack with your chosen weapon
-Use X to open chests(☐)
+Use X to open chests(☐) that are next to you
+Anything you find in a chest will automatically be added to your inventory.
 
 Press ENTER to start your adventure!
 """)
