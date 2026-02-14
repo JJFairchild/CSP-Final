@@ -438,11 +438,11 @@ Press ENTER to start your adventure!
             player.health = enemy.behavior(player)
 
         if player.health <= 0:
-            print("")
+            print("You have died.")
             break
 
         if player.room == 11 and "%" not in [enemy.char for enemy in game[player.room]["enemies"]]:
-            print("")
+            print("You slayed beast of Percentistan! You will be remembered as the greatest hero of all time!")
             break
 
         if player.health < player.max_health: player.health = round(player.health + .1, 1)
