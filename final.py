@@ -14,7 +14,7 @@ class Player:
         self.room = 0
         self.char = char
         self.coord = (5,7)
-        self.inv = ["Sword", "Bomb"]
+        self.inv = ["Sword"]
         self.weapon = "Sword"
         self.lastAtt = time.time()
         
@@ -147,7 +147,7 @@ def makeDisplayable(room):
 game = [
     {
         "walls": [Wall(coord) for coord in [(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1),(13,1),(14,1),(15,1),(16,1),(2,2),(17,2),(1,3),(18,3),(1,4),(1,5),(1,6),(18,6),(1,7),(18,7),(1,8),(18,8),(1,9),(1,10),(1,11),(18,11),(2,12),(17,12),(3,13),(4,13),(5,13),(6,13),(7,13),(8,13),(9,13),(10,13),(11,13),(12,13),(13,13),(14,13),(15,13),(16,13)]],
-        "doors": [Door((18, 4), "|", 1, (2,7)), Door((18, 5), "|", 1, (2,8)), Door((18, 9), "|", 2, (2,2)), Door((18, 10), "|", 2, (2,3))],
+        "doors": [Door((18, 4), "|", 1, (2,7)), Door((18, 5), "|", 1, (2,8)), Door((18, 9), "|", 9, (2,2)), Door((18, 10), "|", 9, (2,3))],
         "chests": [],
         "enemies": [],
         "traps": []
@@ -181,44 +181,44 @@ game = [
         "traps": [Trap((12,8))]
     },
     {
-        "walls": [],
-        "doors": [],
+        "walls": [Wall(coord) for coord in [(8,1), (9,1), (10,1), (11,1), (12,1), (6,2), (7,2), (13,2), (14,2), (5,3), (15,3), (4,4), (16,4), (3,5), (17,5), (18,5), (19,5), (3,6), (1,7), (2,7), (18,8), (19,8), (18,9), (1,10), (2,10), (18,10), (2,11), (18,11), (3,12), (17,12), (3,13), (17,13), (4,14), (16,14), (5,15), (15,15), (6,16), (7,16), (13,16), (14,16), (8,17), (9,17), (10,17), (11,17), (12,17)]],
+        "doors": [Door((19,6), '|', 4, (2, 19)), Door((19,7), '|', 4, (2, 20)), Door((1,8), '|', 6, (12, 4)), Door((1,9), '|', 6, (12, 5))],
         "chests": [],
+        "enemies": [Enemy('*', (5,6)), Enemy('0', (12,6)), Enemy('0', (8,8))],
+        "traps": [Trap((9,3)), Trap((15,6)), Trap((10,10)), Trap((8,13)), Trap((11,14))]
+    },
+    {
+        "walls": [Wall(coord) for coord in [(1,1), (2,1), (5,1), (6,1), (7,1), (8,1), (9,1), (10,1), (13,1), (1,2), (13,2), (1,3), (13,3), (1,4), (1,5), (1,6), (12,6), (13,6), (1,7), (12,7), (1,8), (12,8), (2,9), (12,9), (2,10), (3,10), (4,10), (5,10), (6,10), (7,10), (8,10), (9,10), (10,10), (11,10), (12,10)]],
+        "doors": [Door((3,1), '-', 7, (8,15)), Door((4,1), '-', 7, (9, 15)), Door((11,1), '-', 8, (2, 11)), Door((12,1), '-', 8, (3, 11)), Door((13,4), '|', 5, (2, 8)), Door((13,5), '|', 5, (2, 9))],
+        "chests": [Chest((3,9))],
         "enemies": [],
         "traps": []
     },
     {
-        "walls": [],
-        "doors": [],
-        "chests": [],
-        "enemies": [],
+        "walls": [Wall(coord) for coord in [(1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1), (8,1), (9,1), (10,1), (11,1), (12,1), (1,2), (1,3), (1,4), (11,4), (12,4), (1,5), (11,5), (1,6), (11,6), (1,7), (11,7), (1,8), (11,8), (1,9), (11,9), (1,10), (11,10), (1,11), (11,11), (1,12), (11,12), (1,13), (11,13), (1,14), (11,14), (1,15), (11,15), (1,16), (2,16), (3,16), (4,16), (5,16), (6,16), (7,16), (10,16), (11,16), (12,16)]],
+        "doors": [Door((12,2), '|', 9, (6, 10)), Door((12,3), '|', 9, (6, 11)), Door((8,16), '-', 6, (3, 2)), Door((9,16), '-', 6, (4, 2))],
+        "chests": [Chest((2,8))],
+        "enemies": [Enemy('0', (6,8))],
         "traps": []
     },
     {
-        "walls": [],
-        "doors": [],
+        "walls": [Wall(coord) for coord in [(3,1), (6,1), (3,2), (6,2), (3,3), (6,3), (2,4), (6,4), (2,5), (6,5), (1,6), (5,6), (1,7), (5,7), (1,8), (4,8), (1,9), (4,9), (1,10), (4,10), (1,11), (4,11), (1,12), (4,12)]],
+        "doors": [Door((4,1), '-', 9, (11, 12)), Door((5,1), '-', 9, (12, 12)), Door((2,12), '-', 6, (11, 2)), Door((3,12), '-', 6, (12, 2))],
         "chests": [],
         "enemies": [],
-        "traps": []
+        "traps": [Trap((4,6))]
     },
     {
-        "walls": [],
-        "doors": [],
-        "chests": [],
-        "enemies": [],
-        "traps": []
+        "walls": [Wall(coord) for coord in [(1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1), (8,1), (9,1), (10,1), (11,1), (12,1), (13,1), (14,1), (15,1), (16,1), (17,1), (18,1), (19,1), (19,2), (19,3), (1,4), (2,4), (3,4), (4,4), (5,4), (6,4), (7,4), (19,4), (7,5), (19,5), (7,6), (19,6), (7,7), (19,7), (7,8), (19,8), (20,8), (5,9), (6,9), (7,9), (19,11), (20,11), (5,12), (6,12), (7,12), (19,12), (7,13), (8,13), (9,13), (10,13), (13,13), (14,13), (15,13), (16,13), (17,13), (18,13), (19,13)]],
+        "doors": [Door((1,2), '|', 0, (17, 9)), Door((1,3), '|', 0, (17, 10)), Door((20,9), '|', 10, (2, 2)), Door((5,10), '|', 7, (11, 2)), Door((20,10), '|', 10, (2, 3)), Door((5,11), '|', 7, (11, 3)), Door((11,13), '-', 8, (4, 2)), Door((12,13), '-', 8, (5, 2))],
+        "chests": [Chest((18,12))],
+        "enemies": [Enemy('*', (10,5)), Enemy('0', (14,7))],
+        "traps": [Trap((16,4))]
     },
     {
-        "walls": [],
-        "doors": [],
-        "chests": [],
-        "enemies": [],
-        "traps": []
-    },
-    {
-        "walls": [],
-        "doors": [],
-        "chests": [],
+        "walls": [Wall(coord) for coord in [(1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1), (8,1), (9,1), (10,1), (11,1), (11,2), (11,3), (1,4), (2,4), (11,4), (2,5), (11,5), (2,6), (11,6), (2,7), (11,7), (2,8), (11,8), (2,9), (3,9), (4,9), (5,9), (6,9), (7,9), (8,9), (9,9), (10,9), (11,9)]],
+        "doors": [Door((1,2), '|', 9, (19, 10)), Door((1,3), '|', 9, (19, 9))],
+        "chests": [Chest((10,5))],
         "enemies": [],
         "traps": []
     },
@@ -398,13 +398,12 @@ def main():
 Welcome, chosen hero of the prophecy! It has been foretold that you shall enter the Dungeon of Keys.
 Slay the beast of Percentistan (%) and fight of his minions the Ratsterisks (*) and Gobnones (0)!
 These monsters have set up traps (#). If you step on them they will hurt you!
-It is said the hero will enter with their sword but may need a Spear to attack lined up monsters
-and a Bomb to fight from afar. But beware! You'll have to find these weapons in the many chests of
+It is said the hero will enter with their sword but may need Armor to protect them
+and a Bomb to fight from afar. But beware: You'll have to find these weapons in the many chests of
 the Dungeon of Keys. 
               
 Use E to open your inventory
-To use something from your inventory, type it in. Capitalize the first letter! This is how you
-swap weapons and consume potions.
+To use something from your inventory, type it in. This is how you swap weapons and consume potions.
 Use a Potion from your inventory to restore your health. 
 
 Use the arrow keys (or WASD) to move
@@ -442,7 +441,7 @@ Press ENTER to start your adventure!
             break
 
         if player.room == 11 and "%" not in [enemy.char for enemy in game[player.room]["enemies"]]:
-            print("You slayed beast of Percentistan! You will be remembered as the greatest hero of all time!")
+            print("You have slain the beast of Percentistan! You will be remembered as the greatest hero of all time!")
             break
 
         if player.health < player.max_health: player.health = round(player.health + .1, 1)
