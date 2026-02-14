@@ -1,11 +1,14 @@
 # JF & DS Keyboard Dungeon
+# "import" adds things from an external library to the code. JF coded this.
 
 import keyboard
 import random
 import time
 import os
 
-# Classes for all displayable tiles (including player and enemies) --------------------------------------------------------
+# Classes for all displayable tiles (including player and enemies) ------------------------------------------------------------------
+# The classes are defining our player and other elements like walls, doors, etc. 
+# Classes coded by JF. Inventory coded by DS and polished by JF.
 
 class Player:
     def __init__(self, char):
@@ -135,6 +138,8 @@ class Trap:
         self.coord = coord
 
 # Helper functions / variables --------------------------------------------------------
+# This definition makes it so the rooms appear on the terminal and places walls, doors, chests, enemies, and traps in specific locations.
+# Coded by JF
 
 def makeDisplayable(room):
     new_room = {}
@@ -256,7 +261,7 @@ def area(coord1, coord2):
         for x in range(x_start, x_end + 1):
             tiles.append((x, y))
     return tiles
-
+# This bomb animation adds a visual effect so the player can see where the bomb goes off. Coded by JF.
 def bomb_animation(center):
     frames = [
         ["   ",
@@ -275,7 +280,7 @@ def bomb_animation(center):
          " * ",
          "   "]
     ]
-
+# This loop clears the screen. Coded by JF
     for frame in frames:
         os.system("cls")
 
@@ -293,7 +298,7 @@ def getMax(room):
     mapping = game_coords[room]
     if not mapping: return (1, 1)
     return (max([coord[0] for coord in mapping.keys()]) + 1, max([coord[1] for coord in mapping.keys()]) + 1)
-
+# This allows the player to move using the keyboard. Coded by JF.
 def move(player):
     dx = 0
     dy = 0
@@ -305,7 +310,7 @@ def move(player):
 
     new_coord = (player.coord[0] + dx, player.coord[1] + dy)
     tile = game_coords[player.room].get(new_coord)
-
+# This allows the player to enter new rooms through doors. Coded by JF.
     if isinstance(tile, Door):
         player.room = tile.new_room
         player.coord = tile.new_coord
@@ -315,19 +320,19 @@ def move(player):
 
     player.coord = new_coord
 
-def hasClearLOS(start, end, room_num): # Uses Bresenham's algorithm to find tiles on the line of sight! (I'm so happy I figured this out lol)
+def hasClearLOS(start, end, room_num): # Uses Bresenham's algorithm to find tiles on the line of sight! (I'm so happy I figured this out lol) Coded by JF.
     x1, y1 = start
     x2, y2 = end
     
-    # Line steepness
+    # Line steepness. Coded by JF.
     dx = abs(x2 - x1)
     dy = abs(y2 - y1)
 
-    # Direction (up/down and left/right)
+    # Direction (up/down and left/right). Coded by JF.
     sx = 1 if x2 > x1 else -1
     sy = 1 if y2 > y1 else -1
 
-    err = dx - dy # How far off the ideal line a point is
+    err = dx - dy # How far off the ideal line a point is. Coded by JF.
     
     room_map = game_coords[room_num]
     
@@ -346,7 +351,7 @@ def hasClearLOS(start, end, room_num): # Uses Bresenham's algorithm to find tile
     
     return True
 
-
+# Allows the enemy to find the player. Coded by JF.
 def pathfind(player, enemy):
     if not hasClearLOS(enemy.coord, player.coord, player.room): return enemy.coord
 
@@ -381,7 +386,7 @@ def display(player):
     print(f"\nHealth: {player.health}")
 
 # Main --------------------------------------------------------
-
+# Tutorial intro uses inputs and conditionals to allow the player to select a letter from the alphabet as their identity/name. Coded by DS with input from JF.
 def main():
     while True:
         char = input("Select a letter to play as: ").capitalize()
@@ -393,7 +398,7 @@ def main():
             continue
         else:
             break
-
+# Lore and player instructions/controls written by DS.
     _ = input(f"""You are {char}.
 Welcome, chosen hero of the prophecy! It has been foretold that you shall enter the Dungeon of Keys.
 Slay the beast of Percentistan (%) and fight of his minions the Ratsterisks (*) and Gobnones (0)!
@@ -436,11 +441,11 @@ Press ENTER to start your adventure!
                 del game_coords[player.room][enemy.coord]
                 game[player.room]["enemies"].remove(enemy)
             player.health = enemy.behavior(player)
-
+# Ends the game and tells the player they've died when they reach negative health points. Coded by JF. Message by DS.
         if player.health <= 0:
             print("You have died.")
             break
-
+# Ends the game and tells the player they've won when they are in final boss room and boss is dead. Coded by JF. Message by DS.
         if player.room == 11 and "%" not in [enemy.char for enemy in game[player.room]["enemies"]]:
             print("You slayed beast of Percentistan! You will be remembered as the greatest hero of all time!")
             break
